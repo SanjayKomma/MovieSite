@@ -1,20 +1,30 @@
-import axios from "react"
-const API_KEY = "ceb13aa8";
-const BASE_URL = "https://www.omdbapi.com/";
-const getMovieDetails = async(imdbID)=>{
+import axios from "axios"
+export const TMDB_BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzOGNmYjRiZDZlMWNkMDg5MzYwNDEyOTgzYzE5Zjk1YSIsIm5iZiI6MTc4MzQ1MDIxMy42Mywic3ViIjoiNmE0ZDRhNjUyZjU1NmUxYzdiOTQ3NzU0Iiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.w_bIdczJTsvSJ8GF0BAe4R8SnfGeg2poCS4V6F2jJ0A";
+const BASE_URL = "https://api.themoviedb.org/3";
+const axiosConfig = {
+    headers:{
+        accept: 'application/JSON',
+        Authorization: `Bearer ${TMDB_BEARER_TOKEN}`
+    }
+}
+
+export const getMovieDetails = async(movieId)=>{
     try{
-        const response = await axios.get(BASE_URL, {
-            params:{
-                api_key:API_KEY,
-                i:imdbID,
-                plot: "full"
-            }
-        });
+        const response = await axios.get(`${BASE_URL}/movie/${movieId}`, axiosConfig);
         return response.data;
     }
     catch(error){
-        console.error("error in getMovieDetail service:", error);
-        throw(error);
-        }
-};
-export default getMovieDetails;
+        console.log("error fetching API", error);
+        return null;
+    }
+}
+export const getTrending = async()=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/trending/movie/day`,axiosConfig);
+        return response.data.results;
+    }
+    catch(error){
+        console.log("Error fetching API", error);
+        return[];
+    }
+}
