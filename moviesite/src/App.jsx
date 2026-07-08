@@ -1,14 +1,8 @@
-
-import { Navbar } from "./Navbar";
-import { Trending } from "./Trending";
-
-
+import { RouterProvider } from "react-router";
+import { router } from "./RouterConfig";
 const App = () => {
   return (
-    <div>
-      <Navbar/>
-      <Trending />
-    </div>
+    <RouterProvider router={router} />
   )
 }
 export default App;

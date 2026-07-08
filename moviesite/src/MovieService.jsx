@@ -7,7 +7,6 @@ const axiosConfig = {
         Authorization: `Bearer ${TMDB_BEARER_TOKEN}`
     }
 }
-
 export const getMovieDetails = async(movieId)=>{
     try{
         const response = await axios.get(`${BASE_URL}/movie/${movieId}`, axiosConfig);
@@ -26,5 +25,17 @@ export const getTrending = async()=>{
     catch(error){
         console.log("Error fetching API", error);
         return[];
+    }
+}
+export const getTrailer = async(movieId)=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/movie/${movieId}/videos`, axiosConfig);
+        const video = response.data.results;
+        const trailer = video.find(
+            (vid)=>vid.site === "YouTube" && (vid.type === "Trailer" || vid.type === "Teaser"));
+            return trailer ? trailer.key : null;
+    }
+    catch(error){
+        console.log("Error fetching video", error);
     }
 }
