@@ -17,9 +17,19 @@ export const getMovieDetails = async(movieId)=>{
         return null;
     }
 }
-export const getTrending = async()=>{
+export const getTrendingMovies = async()=>{
     try{
-        const response = await axios.get(`${BASE_URL}/trending/movie/day`,axiosConfig);
+        const response = await axios.get(`${BASE_URL}/trending/movie/day`, axiosConfig);
+        return response.data.results;
+    }
+    catch(error){
+        console.log("Error fetching API", error);
+        return[];
+    }
+}
+export const getTrendingTvShows = async()=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/trending/tv/day`, axiosConfig);
         return response.data.results;
     }
     catch(error){
@@ -37,5 +47,14 @@ export const getTrailer = async(movieId)=>{
     }
     catch(error){
         console.log("Error fetching video", error);
+    }
+}
+export const getMovieCredits = async(movieId)=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/movie/${movieId}/credits`, axiosConfig);
+        return response.data;
+    }
+    catch(error){
+        console.log("Unable to fetch cast details", error);
     }
 }
