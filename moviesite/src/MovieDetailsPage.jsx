@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router"
-import { getMovieCredits, getMovieDetails, getTrailer } from "./MovieService";
+import { getMovieCredits, getMovieDetails, getMovieTrailer } from "./MovieService";
 export const MovieDetailsPage = () => {
     const {id} = useParams();
     const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ export const MovieDetailsPage = () => {
             setLoading(true);
             const [fetchedMovieData, fetchedTrailerKey, fetchCastAndCrew] = await Promise.all([
                 getMovieDetails(id),
-                getTrailer(id),
+                getMovieTrailer(id),
                 getMovieCredits(id)
             ]);
             console.log(fetchedTrailerKey);
@@ -32,8 +32,8 @@ export const MovieDetailsPage = () => {
     const directors = credits.crew.filter(person => person.job === "Director");
     const producers = credits.crew.filter(person => person.job === "Producer");
     const topCast = credits.cast.slice(0,20);
-    if(loading) return <h3>Loading movie details</h3>
-    if(!movie) return <h3>unable to fetch movie details</h3>
+    if(loading) return <h3 className="text-white">Loading movie details</h3>
+    if(!movie) return <h3 className="text-white">unable to fetch movie details</h3>
   return (
     <div className="pt-10 max-w-auto mx-40">
         <div className="flex flex-row pb-4">

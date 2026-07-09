@@ -13,6 +13,7 @@ export const Trending = () => {
                 getTrendingMovies(),
                 getTrendingTvShows()
             ]);
+            console.log(tvData);
             setMovies(movieData);
             setTvShows(tvData);
             setLoading(false);
@@ -20,7 +21,7 @@ export const Trending = () => {
         trending();
     },[])
     if(loading){
-        return <h2>Loading Page....</h2>
+        return <h2 className="text-white">Loading Page....</h2>
     }
     return (
         <div className="min-h-screen bg-gray-950 mx-20">

@@ -17,6 +17,16 @@ export const getMovieDetails = async(movieId)=>{
         return null;
     }
 }
+export const getTvShowDetails = async(tvShowId)=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/tv/${tvShowId}`, axiosConfig);
+        return response.data;
+    }
+    catch(error){
+        console.log("Unable to fetch TV show details", error);
+        return null;
+    }
+}
 export const getTrendingMovies = async()=>{
     try{
         const response = await axios.get(`${BASE_URL}/trending/movie/day`, axiosConfig);
@@ -37,9 +47,21 @@ export const getTrendingTvShows = async()=>{
         return[];
     }
 }
-export const getTrailer = async(movieId)=>{
+export const getMovieTrailer = async(movieId)=>{
     try{
         const response = await axios.get(`${BASE_URL}/movie/${movieId}/videos`, axiosConfig);
+        const video = response.data.results;
+        const trailer = video.find(
+            (vid)=>vid.site === "YouTube" && (vid.type === "Trailer" || vid.type === "Teaser"));
+            return trailer ? trailer.key : null;
+    }
+    catch(error){
+        console.log("Error fetching video", error);
+    }
+}
+export const getTvShowTrailer = async(tvShowId)=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/tv/${tvShowId}/videos`, axiosConfig);
         const video = response.data.results;
         const trailer = video.find(
             (vid)=>vid.site === "YouTube" && (vid.type === "Trailer" || vid.type === "Teaser"));
@@ -52,6 +74,15 @@ export const getTrailer = async(movieId)=>{
 export const getMovieCredits = async(movieId)=>{
     try{
         const response = await axios.get(`${BASE_URL}/movie/${movieId}/credits`, axiosConfig);
+        return response.data;
+    }
+    catch(error){
+        console.log("Unable to fetch cast details", error);
+    }
+}
+export const getTrailerCredits = async(tvShowId)=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/tv/${tvShowId}/credits`, axiosConfig);
         return response.data;
     }
     catch(error){

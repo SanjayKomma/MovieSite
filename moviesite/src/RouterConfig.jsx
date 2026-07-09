@@ -2,7 +2,6 @@ import { createBrowserRouter, Outlet } from "react-router"
 import { Navbar } from "./Navbar"
 import { HomePage } from "./HomePage"
 import { MovieDetailsPage } from "./MovieDetailsPage"
-import { Trending } from "./Trending"
 import { TvShowDetails } from "./TvShowDetails"
 const PageLayout=()=>{
     return(
