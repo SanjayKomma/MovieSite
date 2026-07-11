@@ -13,9 +13,11 @@ export const Navbar = () => {
             className="w-full max-w-xs px-4 py-1 rounded bg-gray-700 outline-none"
             ></input>
             <NavLink to={"/movies"} className={({isActive})=>
-              `${isActive}?"text-gray-500 font-medium" : text-white hover:text-gray-500`
-            }>Movies</NavLink>
-            <p className="cursor-pointer hover:text-gray-500 font-medium">TV Shows</p>
+              `cursor-pointer font-bold ${isActive? "text-gray-500 font-medium" : "text-white hover:text-gray-500"
+            }`}>Movies</NavLink>
+            <NavLink to={"/tvshows"} className={({isActive})=>
+            `cursor-pointer font-bold ${isActive? "text-gray-500 font-medium" : "text-white hover:text-gray-500"
+            }`}>TV Shows</NavLink>
         </div>
         <div className="w-1/4"></div>
     </div>
