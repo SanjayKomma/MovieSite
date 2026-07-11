@@ -47,6 +47,26 @@ export const getTrendingTvShows = async()=>{
         return[];
     }
 }
+export const getPopularMovies = async()=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/movie/popular`, axiosConfig);
+        return response.data.results;
+    }
+    catch(error){
+        console.log("unable to get popular movies details", error);
+        return [];
+    }
+}
+export const getPopularTvShows = async()=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/tv/popular`, axiosConfig);
+        return response.data.results;
+    }
+    catch(error){
+        console.log("unable to get popular TV shows details", error);
+        return [];
+    }
+}
 export const getMovieTrailer = async(movieId)=>{
     try{
         const response = await axios.get(`${BASE_URL}/movie/${movieId}/videos`, axiosConfig);

@@ -45,7 +45,7 @@ export const TvShowDetails = () => {
             <div className="flex flex-row gap-5 justify-end flex-1 font-semibold text-center">
                 <div>
                     <h1 className="text-white">IMDb Rating</h1>
-                    <h1 className="text-white">{tvShow.vote_average}</h1>
+                    <h1 className="text-white">{tvShow.vote_average.toFixed(1)}</h1>
                 </div>
                 <div>
                     <h1 className="text-white">Your Rating</h1>
