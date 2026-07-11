@@ -17,16 +17,6 @@ export const getMovieDetails = async(movieId)=>{
         return null;
     }
 }
-export const getTvShowDetails = async(tvShowId)=>{
-    try{
-        const response = await axios.get(`${BASE_URL}/tv/${tvShowId}`, axiosConfig);
-        return response.data;
-    }
-    catch(error){
-        console.log("Unable to fetch TV show details", error);
-        return null;
-    }
-}
 export const getTrendingMovies = async()=>{
     try{
         const response = await axios.get(`${BASE_URL}/trending/movie/day`, axiosConfig);
@@ -35,36 +25,6 @@ export const getTrendingMovies = async()=>{
     catch(error){
         console.log("Error fetching API", error);
         return[];
-    }
-}
-export const getTrendingTvShows = async()=>{
-    try{
-        const response = await axios.get(`${BASE_URL}/trending/tv/day`, axiosConfig);
-        return response.data.results;
-    }
-    catch(error){
-        console.log("Error fetching API", error);
-        return[];
-    }
-}
-export const getPopularMovies = async()=>{
-    try{
-        const response = await axios.get(`${BASE_URL}/movie/popular`, axiosConfig);
-        return response.data.results;
-    }
-    catch(error){
-        console.log("unable to get popular movies details", error);
-        return [];
-    }
-}
-export const getPopularTvShows = async()=>{
-    try{
-        const response = await axios.get(`${BASE_URL}/tv/popular`, axiosConfig);
-        return response.data.results;
-    }
-    catch(error){
-        console.log("unable to get popular TV shows details", error);
-        return [];
     }
 }
 export const getMovieTrailer = async(movieId)=>{
@@ -79,6 +39,75 @@ export const getMovieTrailer = async(movieId)=>{
         console.log("Error fetching video", error);
     }
 }
+export const getPopularMovies = async()=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/movie/popular`, axiosConfig);
+        return response.data.results;
+    }
+    catch(error){
+        console.log("Error fetching API", error);
+        return[];
+    }
+}
+export const getTopRatedMovies = async()=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/movie/top_rated`, axiosConfig);
+        return response.data.results;
+    }
+    catch(error){
+        console.log("Error fetching API", error);
+        return[];
+    }
+}
+export const getMovieCredits = async(movieId)=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/movie/${movieId}/credits`, axiosConfig);
+        return response.data;
+    }
+    catch(error){
+        console.log("Unable to fetch cast details", error);
+    }
+}
+export const getTvShowDetails = async(tvShowId)=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/tv/${tvShowId}`, axiosConfig);
+        return response.data;
+    }
+    catch(error){
+        console.log("Unable to fetch TV show details", error);
+        return null;
+    }
+}
+export const getTrendingTvShows = async()=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/trending/tv/day`, axiosConfig);
+        return response.data.results;
+    }
+    catch(error){
+        console.log("Error fetching API", error);
+        return[];
+    }
+}
+export const getPopularTvShow = async()=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/tv/popular`, axiosConfig);
+        return response.data.results;
+    }
+    catch(error){
+        console.log("Error fetching API", error);
+        return[];
+    }
+}
+export const getTopRatedTvShows = async()=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/tv/top_rated`, axiosConfig);
+        return response.data.results;
+    }
+    catch(error){
+        console.log("Error fetching API", error);
+        return[];
+    }
+}
 export const getTvShowTrailer = async(tvShowId)=>{
     try{
         const response = await axios.get(`${BASE_URL}/tv/${tvShowId}/videos`, axiosConfig);
@@ -89,15 +118,6 @@ export const getTvShowTrailer = async(tvShowId)=>{
     }
     catch(error){
         console.log("Error fetching video", error);
-    }
-}
-export const getMovieCredits = async(movieId)=>{
-    try{
-        const response = await axios.get(`${BASE_URL}/movie/${movieId}/credits`, axiosConfig);
-        return response.data;
-    }
-    catch(error){
-        console.log("Unable to fetch cast details", error);
     }
 }
 export const getTrailerCredits = async(tvShowId)=>{

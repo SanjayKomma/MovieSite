@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react"
-import { getPopularMovies, getPopularTvShow } from "./MovieService"
+import { getTopRatedMovies, getTopRatedTvShows } from "./MovieService"
 import { Link } from "react-router"
-export const Popular = () => {
+export const TopRated = () => {
     const [movies, setMovies] = useState([]);
     const [tvShows, setTvShows] = useState([]);
     const [loading, setLoading] = useState(true);
     const Image_Base_Url = "https://image.tmdb.org/t/p/w500";
     useEffect(()=>{
-        const popular = async()=>{
+        const topRated = async()=>{
             setLoading(true);
             const [movieData, tvData] = await Promise.all([
-                getPopularMovies(),
-                getPopularTvShow()
+                getTopRatedMovies(),
+                getTopRatedTvShows()
             ]);
             console.log(tvData);
             setMovies(movieData);
             setTvShows(tvData);
             setLoading(false);
         }
-        popular();
+        topRated();
     },[])
     if(loading){
         return <h2 className="text-white">Loading Page....</h2>
@@ -26,7 +26,7 @@ export const Popular = () => {
     return (
         <div className="min-h-screen bg-gray-950 mx-20">
             <div className="pt-3 px-4">
-                <h2 className="font-bold text-white text-xl">Most Popular Movies</h2>
+                <h2 className="font-bold text-white text-xl">Top Rated Movies</h2>
                 <div className="w-full overflow-x-auto whitespace-nowrap py-4">
                     <div className="flex flex-row gap-4">
                         {movies.map((movie)=>(
@@ -44,7 +44,7 @@ export const Popular = () => {
                 </div>
             </div>
             <div className="pt-3 px-4">
-                <h2 className="font-bold text-white text-xl">Most Popular TV Shows</h2>
+                <h2 className="font-bold text-white text-xl">Top Rated TV Shows</h2>
                 <div className="w-full overflow-x-auto whitespace-nowrap py-4">
                     <div className="flex flex-row gap-4">
                         {tvShows.map((tvShow)=>(

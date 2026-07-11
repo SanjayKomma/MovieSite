@@ -18,7 +18,7 @@ export const MovieDetailsPage = () => {
             const [fetchedMovieData, fetchedTrailerKey, fetchCastAndCrew] = await Promise.all([
                 getMovieDetails(id),
                 getMovieTrailer(id),
-                getMovieCredits(id)
+                getMovieCredits(id),
             ]);
             console.log(fetchedTrailerKey);
             console.log(fetchCastAndCrew);
