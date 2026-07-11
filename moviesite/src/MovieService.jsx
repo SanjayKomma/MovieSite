@@ -147,3 +147,12 @@ export const getTvShowGenres = async()=>{
         console.log("Unable to fetch cast details", error);
     }
 }
+export const searchMulti = async(query)=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/search/multi?query=${encodeURIComponent(query)}`, axiosConfig);
+        return response.data.results;
+    }
+    catch(error){
+        console.log("Unable to fetch cast details", error);
+    }
+}

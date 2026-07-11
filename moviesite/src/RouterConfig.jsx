@@ -5,6 +5,7 @@ import { MovieDetailsPage } from "./MovieDetailsPage"
 import { TvShowDetails } from "./TvShowDetails"
 import { MoviesPage } from "./MoviesPage"
 import { TvShowsPage } from "./TvShowsPage"
+import { Search } from "./Search"
 const PageLayout=()=>{
     return(
         <div className="min-h-screen bg-gray-950">
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
             {
                 path:"tvshows",
                 element:<TvShowsPage />
+            },
+            {
+                path:"search/",
+                element:<Search />
             }
         ]
     }
