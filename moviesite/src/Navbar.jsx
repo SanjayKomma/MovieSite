@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router"
-
-
 export const Navbar = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");

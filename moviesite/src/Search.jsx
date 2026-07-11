@@ -28,36 +28,40 @@ export const Search = () => {
         );
     }
   return (
-    <div>
-        <div>
-            <h1 className="text-white">Results for : <span>{query}</span></h1>
+    <div className="min-h-screen mx-30">
+            <h1 className="flex justify-center font-bold text-white py-2 font-bold text-xl">Results for "{query}"</h1>
             {results.length === 0 ? (
                 <p className="text-white">No Results found</p>
             ):(
-                <div >
+                <div>
                 {results.map((item)=>{
                     const isMovie = item.media_type === "movie";
                     const detailPath = isMovie ? `/movie/${item.id}` :`/tv/${item.id}`;
                     const title = isMovie ? item.title : item.name;
                     const date = isMovie ? item.release_date : item.first_air_date;
                     return(
-                        <div key={item.id}>
+                        <div key={item.id} className="flex flex-cols-1 gap-2 h-50 border-t border-b border-gray-700">
+                            <div className="flex items-center">
                             <Link to={detailPath}>
                                 <img src={`${Image_Base_Url}${item.poster_path}`}
                                 alt="title"
+                                className="w-30 h-40"
                                 />
-                                <div>
-                                    <h2 className="text-white">{title}</h2>
-                                    <span className="text-white">{date ? date.substring(0,4) : "N/A"} . {isMovie ? "Movie" : "TV Show"}</span>
-                                </div>
                             </Link>
+                            </div>
+                            <div className="pt-3">
+                                <Link to={detailPath}>
+                                    <h1 className="text-white">{title}</h1>
+                                    <span className="text-white">{date ? date.substring(0,4) : "N/A"} . {isMovie ? "Movie" : "TV Show"}</span>
+                                    <h1 className="text-white">IMDB Rating : {item.vote_average.toFixed(1)}</h1>
+                                </Link>
+                            </div>
                         </div>
                     );
                 })}
                 </div>
             )
             }
-        </div>
     </div>
   );
 };
