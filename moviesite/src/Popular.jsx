@@ -30,7 +30,7 @@ export const Popular = () => {
                 <div className="w-full overflow-x-auto whitespace-nowrap py-4">
                     <div className="flex flex-row gap-4">
                         {movies.map((movie)=>(
-                            <div key={movie.id} className="w-50 flex-shrink-0 flex flex-col bg-gray-900 rounded-xl overflow-hidden">
+                            <div key={movie.id} className="w-50 flex-shrink-0 flex flex-col bg-gray-900 rounded-xl overflow-hidden will-change-transform hover:scale-110">
                                 <Link to={`/movie/${movie.id}`}>
                                 <img className="w-full h-72 object-cover" src={movie.poster_path ? `${Image_Base_Url}${movie.poster_path}`: "No Poster"} alt={movie.title}/>
                                  <div className="p-2">
@@ -48,11 +48,11 @@ export const Popular = () => {
                 <div className="w-full overflow-x-auto whitespace-nowrap py-4">
                     <div className="flex flex-row gap-4">
                         {tvShows.map((tvShow)=>(
-                            <div key={tvShow.id} className="w-50 flex-shrink-0 flex flex-col bg-gray-900 rounded-xl overflow-hidden">
+                            <div key={tvShow.id} className="w-50 flex-shrink-0 flex flex-col bg-gray-900 rounded-xl overflow-hidden will-change-transform hover:scale-110">
                                 <Link to={`/tv/${tvShow.id}`}>
                                 <img className="w-full h-72 object-cover" src={tvShow.poster_path ? `${Image_Base_Url}${tvShow.poster_path}`: "No Poster"} alt={tvShow.title}/>
                                  <div className="p-2">
-                                    <h3 className="font-bold text-white text-sm">{tvShow.title}</h3>
+                                    <h3 className="font-bold text-white text-sm">{tvShow.name}</h3>
                                     <span className="font-bold text-white text-xs">{tvShow.first_air_date ? tvShow.first_air_date.substring(0,4):"N/A"}</span>
                                 </div>
                                 </Link>

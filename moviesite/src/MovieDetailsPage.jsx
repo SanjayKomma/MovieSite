@@ -20,8 +20,7 @@ export const MovieDetailsPage = () => {
                 getMovieTrailer(id),
                 getMovieCredits(id),
             ]);
-            console.log(fetchedTrailerKey);
-            console.log(fetchCastAndCrew);
+            console.log(fetchedMovieData);
             setMovie(fetchedMovieData);
             setTrailerKey(fetchedTrailerKey);
             setCredits(fetchCastAndCrew);
@@ -40,6 +39,7 @@ export const MovieDetailsPage = () => {
             <div className="flex flex-col justify-start">
                 <h1 className="font-bold text-2xl text-white">{movie.title}</h1>
                 <p className="font-semibold text-white">{movie.release_date?.substring(0,4)} . RunTime : {movie.runtime} minutes</p>
+                <p className="font-semibold text-gray-600">{movie.genres?.map(genre => genre.name).join(", ")}</p>
             </div>
             <div className="flex flex-row gap-5 justify-end flex-1 font-semibold text-center">
                 <div>

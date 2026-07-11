@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router"
+import { NavLink, useNavigate } from "react-router"
 
 
 export const Navbar = () => {
@@ -6,14 +6,16 @@ export const Navbar = () => {
   return (
     <div className="flex items-center justify-between px-8 pt-4 pb-4 bg-gray-800 text-white">
         <div className="w-1/4">
-            <h1 className="text-2xl font-bold tracking-wide" onClick={()=>navigate("/")}>Movie DB</h1>
+            <h1 className="text-2xl font-bold tracking-wide cursor-pointer" onClick={()=>navigate("/")}>Movie DB</h1>
         </div>
         <div className="flex items-center justify-center flex-1 gap-4">
             <input  type="text" placeholder="search"
             className="w-full max-w-xs px-4 py-1 rounded bg-gray-700 outline-none"
             ></input>
-            <p className="cursor-pointer hover:text-gray-300 font-medium">Menu</p>
-            <p className="cursor-pointer hover:text-gray-300 font-medium">Filter</p>
+            <NavLink to={"/movies"} className={({isActive})=>
+              `${isActive}?"text-gray-500 font-medium" : text-white hover:text-gray-500`
+            }>Movies</NavLink>
+            <p className="cursor-pointer hover:text-gray-500 font-medium">TV Shows</p>
         </div>
         <div className="w-1/4"></div>
     </div>

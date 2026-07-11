@@ -21,7 +21,6 @@ export const TvShowDetails = () => {
       getTrailerCredits(id)
       ]);
       console.log(tvShowData);
-      console.log(fetchedTrailerKey);
       setTvShow(tvShowData);
       setTrailerKey(fetchedTrailerKey);
       setCredits(fetchCastAndCrew);
@@ -41,6 +40,7 @@ export const TvShowDetails = () => {
                 <h1 className="font-bold text-2xl text-white">{tvShow.name}</h1>
                 <p className="font-semibold text-white">Seasons: {tvShow.number_of_seasons}</p>
                 <p className="font-semibold text-white">Total Episodes: {tvShow.number_of_episodes}</p>
+                <p className="font-semibold text-gray-600">{tvShow.genres.map(genre => genre.name).join(", `")}</p>
             </div>
             <div className="flex flex-row gap-5 justify-end flex-1 font-semibold text-center">
                 <div>

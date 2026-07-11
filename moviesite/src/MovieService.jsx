@@ -68,6 +68,15 @@ export const getMovieCredits = async(movieId)=>{
         console.log("Unable to fetch cast details", error);
     }
 }
+export const getMovieGenres = async()=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/genre/movie/list`, axiosConfig);
+        return response.data;
+    }
+    catch(error){
+        console.log("Unable to fetch cast details", error);
+    }
+}
 export const getTvShowDetails = async(tvShowId)=>{
     try{
         const response = await axios.get(`${BASE_URL}/tv/${tvShowId}`, axiosConfig);
@@ -123,6 +132,15 @@ export const getTvShowTrailer = async(tvShowId)=>{
 export const getTrailerCredits = async(tvShowId)=>{
     try{
         const response = await axios.get(`${BASE_URL}/tv/${tvShowId}/credits`, axiosConfig);
+        return response.data;
+    }
+    catch(error){
+        console.log("Unable to fetch cast details", error);
+    }
+}
+export const getTvShowGenres = async()=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/genre/tv/list`, axiosConfig);
         return response.data;
     }
     catch(error){

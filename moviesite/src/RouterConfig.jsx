@@ -3,6 +3,8 @@ import { Navbar } from "./Navbar"
 import { HomePage } from "./HomePage"
 import { MovieDetailsPage } from "./MovieDetailsPage"
 import { TvShowDetails } from "./TvShowDetails"
+import { MoviesPage } from "./MoviesPage"
+import { TvShowsPage } from "./TvShowsPage"
 const PageLayout=()=>{
     return(
         <div className="min-h-screen bg-gray-950">
@@ -29,6 +31,14 @@ export const router = createBrowserRouter([
                 path:"tv/:id",
                 element:<TvShowDetails />
             },
+            {
+                path:"movies",
+                element:<MoviesPage />
+            },
+            {
+                path:"tvshows",
+                element:<TvShowsPage />
+            }
         ]
     }
 ])
