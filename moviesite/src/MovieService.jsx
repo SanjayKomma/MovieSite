@@ -156,3 +156,21 @@ export const searchMulti = async(query)=>{
         console.log("Unable to fetch cast details", error);
     }
 }
+export const fetchMovieGenres = async()=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/genre/movie/list`, axiosConfig);
+        return response.data.genres;
+    }
+    catch(error){
+        console.log("Error fetching movie genre", error);
+    }
+}
+export const fetchTVGenres = async()=>{
+    try{
+        const response = await axios.get(`${BASE_URL}/genre/tv/list`, axiosConfig);
+        return response.data.genres;
+    }
+    catch(error){
+        console.log("Error fetching movie genre", error);
+    }
+}

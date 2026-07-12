@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { getPopularMovies, getTopRatedMovies, getTrendingMovies } from "./MovieService";
 
 
@@ -8,6 +8,9 @@ export const MoviesPage = () => {
     const [trendingMovies, setTrendingMovies] = useState([]);
     const [topRatedMovies, setTopRatedMovies] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [searchParams] = useSearchParams();
+    const selectedGenre = searchParams.get("genre") || "";
+    const selectedYear = searchParams.get("year") || "";
     const Image_Base_Url = "https://image.tmdb.org/t/p/w500";
     useEffect(()=>{
         const trending = async()=>{
@@ -33,7 +36,11 @@ export const MoviesPage = () => {
                 <h2 className="font-bold text-white text-xl">Top Movie Picks Today</h2>
                 <div className="w-full overflow-x-auto whitespace-nowrap py-4">
                     <div className="flex flex-row gap-4">
-                        {trendingMovies.map((movie)=>(
+                        {trendingMovies && trendingMovies.filter(movie=>{
+                            const matchesYear = selectedYear ? movie.release_date?.startsWith(selectedYear):true;
+                            const matchesGenre = selectedGenre ? movie.genre_ids?.map(String).includes(selectedGenre):true;
+                            return matchesGenre && matchesYear;
+                        }).map((movie)=>(
                             <div key={movie.id} className="w-50 flex-shrink-0 flex flex-col bg-gray-900 rounded-xl overflow-hidden hover:scale-110">
                                 <Link to={`/movie/${movie.id}`}>
                                 <img className="w-full h-72 object-cover" src={movie.poster_path ? `${Image_Base_Url}${movie.poster_path}`: "No Poster"} alt={movie.title}/>
@@ -51,7 +58,11 @@ export const MoviesPage = () => {
                 <h2 className="font-bold text-white text-xl">Popular Movies</h2>
                 <div className="w-full overflow-x-auto whitespace-nowrap py-4">
                     <div className="flex flex-row gap-4">
-                        {popularMovies.map((movie)=>(
+                        {popularMovies && popularMovies.filter(movie=>{
+                            const matchesYear = selectedYear ? movie.release_date?.startsWith(selectedYear):true;
+                            const matchesGenre = selectedGenre ? movie.genre_ids?.map(String).includes(selectedGenre):true;
+                            return matchesGenre && matchesYear;
+                        }).map((movie)=>(
                             <div key={movie.id} className="w-50 flex-shrink-0 flex flex-col bg-gray-900 rounded-xl overflow-hidden hover:scale-110">
                                 <Link to={`/movie/${movie.id}`}>
                                 <img className="w-full h-72 object-cover" src={movie.poster_path ? `${Image_Base_Url}${movie.poster_path}`: "No Poster"} alt={movie.title}/>
@@ -69,7 +80,11 @@ export const MoviesPage = () => {
                 <h2 className="font-bold text-white text-xl">Top Rated Movies</h2>
                 <div className="w-full overflow-x-auto whitespace-nowrap py-4">
                     <div className="flex flex-row gap-4">
-                        {topRatedMovies.map((movie)=>(
+                        {topRatedMovies && topRatedMovies.filter(movie=>{
+                            const matchesYear = selectedYear ? movie.release_date?.startsWith(selectedYear):true;
+                            const matchesGenre = selectedGenre ? movie.genre_ids?.map(String).includes(selectedGenre):true;
+                            return matchesGenre && matchesYear;
+                        }).map((movie)=>(
                             <div key={movie.id} className="w-50 flex-shrink-0 flex flex-col bg-gray-900 rounded-xl overflow-hidden hover:scale-110">
                                 <Link to={`/movie/${movie.id}`}>
                                 <img className="w-full h-72 object-cover" src={movie.poster_path ? `${Image_Base_Url}${movie.poster_path}`: "No Poster"} alt={movie.title}/>

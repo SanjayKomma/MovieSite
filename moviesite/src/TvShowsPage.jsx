@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { getPopularTvShow, getTopRatedTvShows, getTrendingTvShows } from "./MovieService";
 
 export const TvShowsPage = () => {
@@ -7,6 +7,9 @@ export const TvShowsPage = () => {
     const [trendingTvShows, setTrendingTvShows] = useState([]);
     const [topRatedTvShows, setTopRatedTvShows] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [searchParams] = useSearchParams();
+    const selectedGenre = searchParams.get("genre") || "";
+    const selectedYear = searchParams.get("year") || "";
     const Image_Base_Url = "https://image.tmdb.org/t/p/w500";
     useEffect(()=>{
         const trending = async()=>{
@@ -33,7 +36,11 @@ export const TvShowsPage = () => {
                 <h2 className="font-bold text-white text-xl">Top TV Shows today</h2>
                 <div className="w-full overflow-x-auto whitespace-nowrap py-4">
                     <div className="flex flex-row gap-4">
-                        {trendingTvShows.map((tvShow)=>(
+                        {trendingTvShows && trendingTvShows.filter(tvShow=>{
+                            const matchesYear = selectedYear ? tvShow.first_air_date?.startsWith(selectedYear):true;
+                            const matchesGenre = selectedGenre ? tvShow.genre_ids?.map(String).includes(selectedGenre):true;
+                            return matchesGenre && matchesYear;
+                        }).map((tvShow)=>(
                             <div key={tvShow.id} className="w-50 flex-shrink-0 flex flex-col bg-gray-900 rounded-xl overflow-hidden will-change-transform hover:scale-110">
                                 <Link to={`/tv/${tvShow.id}`}>
                                 <img className="w-full h-72 object-cover" src={tvShow.poster_path ? `${Image_Base_Url}${tvShow.poster_path}`: "No Poster"} alt={tvShow.title}/>
@@ -51,7 +58,11 @@ export const TvShowsPage = () => {
                 <h2 className="font-bold text-white text-xl">Popular TV Shows</h2>
                 <div className="w-full overflow-x-auto whitespace-nowrap py-4">
                     <div className="flex flex-row gap-4">
-                        {popularTvShows.map((tvShow)=>(
+                        {popularTvShows && popularTvShows.filter(tvShow=>{
+                            const matchesYear = selectedYear ? tvShow.first_air_date?.startsWith(selectedYear):true;
+                            const matchesGenre = selectedGenre ? tvShow.genre_ids?.map(String).includes(selectedGenre):true;
+                            return matchesGenre && matchesYear;
+                        }).map((tvShow)=>(
                             <div key={tvShow.id} className="w-50 flex-shrink-0 flex flex-col bg-gray-900 rounded-xl overflow-hidden will-change-transform hover:scale-110">
                                 <Link to={`/tv/${tvShow.id}`}>
                                 <img className="w-full h-72 object-cover" src={tvShow.poster_path ? `${Image_Base_Url}${tvShow.poster_path}`: "No Poster"} alt={tvShow.title}/>
@@ -69,7 +80,11 @@ export const TvShowsPage = () => {
                 <h2 className="font-bold text-white text-xl">Top Rated TV Shows</h2>
                 <div className="w-full overflow-x-auto whitespace-nowrap py-4">
                     <div className="flex flex-row gap-4">
-                        {topRatedTvShows.map((tvShow)=>(
+                        {topRatedTvShows && topRatedTvShows.filter(tvShow=>{
+                            const matchesYear = selectedYear ? tvShow.first_air_date?.startsWith(selectedYear):true;
+                            const matchesGenre = selectedGenre ? tvShow.genre_ids?.map(String).includes(selectedGenre):true;
+                            return matchesGenre && matchesYear;
+                        }).map((tvShow)=>(
                             <div key={tvShow.id} className="w-50 flex-shrink-0 flex flex-col bg-gray-900 rounded-xl overflow-hidden will-change-transform hover:scale-110">
                                 <Link to={`/tv/${tvShow.id}`}>
                                 <img className="w-full h-72 object-cover" src={tvShow.poster_path ? `${Image_Base_Url}${tvShow.poster_path}`: "No Poster"} alt={tvShow.title}/>

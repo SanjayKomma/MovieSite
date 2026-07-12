@@ -38,9 +38,10 @@ export const TvShowDetails = () => {
         <div className="flex flex-row pb-4">
             <div className="flex flex-col justify-start">
                 <h1 className="font-bold text-2xl text-white">{tvShow.name}</h1>
+                <p className="font-semibold text-white">{tvShow.first_air_date.substring(0,4)}</p>
                 <p className="font-semibold text-white">Seasons: {tvShow.number_of_seasons}</p>
                 <p className="font-semibold text-white">Total Episodes: {tvShow.number_of_episodes}</p>
-                <p className="font-semibold text-gray-600">{tvShow.genres.map(genre => genre.name).join(", `")}</p>
+                <p className="font-semibold text-gray-600">{tvShow.genres.map(genre => genre.name).join(", ")}</p>
             </div>
             <div className="flex flex-row gap-5 justify-end flex-1 font-semibold text-center">
                 <div>
