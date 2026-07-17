@@ -174,3 +174,12 @@ export const fetchTVGenres = async()=>{
         console.log("Error fetching movie genre", error);
     }
 }
+export const saveMovieRatingLocal = (id, ratingValue) =>{
+    try{
+        localStorage.setItem(`movie_rating_${id}`, ratingValue);
+        return true;
+    }
+    catch(error){
+        console.log("Error saving data in site", error);
+    }
+}

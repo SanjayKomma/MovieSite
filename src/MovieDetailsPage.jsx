@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router"
-import { getMovieCredits, getMovieDetails, getMovieTrailer } from "./MovieService";
+import { getMovieCredits, getMovieDetails, getMovieTrailer, saveMovieRatingLocal } from "./MovieService";
 export const MovieDetailsPage = () => {
     const {id} = useParams();
     const [loading, setLoading] = useState(true);
@@ -10,6 +10,11 @@ export const MovieDetailsPage = () => {
         cast:[],
         crew:[]
     });
+    const [rating, setRating] = useState(()=>{
+        const savedRating = localStorage.getItem(`movie_rating_${id}`);
+        return savedRating ? parseInt(savedRating, 10) : 0;
+    });
+    const [hoverRating, setHoverRating] = useState(0);
     const CastImage_Base_Url = "https://image.tmdb.org/t/p/w185";
     const Image_Base_Url = "https://image.tmdb.org/t/p/w500";
     useEffect(()=>{
@@ -31,6 +36,10 @@ export const MovieDetailsPage = () => {
     const directors = credits.crew.filter(person => person.job === "Director");
     const producers = credits.crew.filter(person => person.job === "Producer");
     const topCast = credits.cast.slice(0,20);
+    const handleRating = async(ratingValue) => {
+        setRating(ratingValue);
+        saveMovieRatingLocal(id,ratingValue);
+    }
     if(loading) return <h3 className="text-white">Loading movie details</h3>
     if(!movie) return <h3 className="text-white">unable to fetch movie details</h3>
   return (
@@ -46,11 +55,31 @@ export const MovieDetailsPage = () => {
                     <h1 className="text-white">IMDb Rating</h1>
                     <h1 className="text-white">{movie.vote_average.toFixed(1)}</h1>
                 </div>
-                <div>
-                    <h1 className="text-white">Your Rating</h1>
-                    <h1 className="text-white"></h1>
+                <div className="flex flex-col items-center">
+                    <h1 className="text-white select-none">Your Rating</h1>
+                    <h1 className="text-white font-bold text-xl mb-1">
+                        {rating > 0 ? `${rating}/10` : "—"}
+                    </h1>
+                    <div className="flex gap-1" onMouseLeave={() => setHoverRating(0)}>
+                        {[1, 2, 3, 4, 5].map((starIndex) => {
+                        const starValue = starIndex * 2;
+                        const isFilled = hoverRating >= starValue || (!hoverRating && rating >= starValue);
+                        return (
+                            <span
+                            key={starIndex}
+                            className={`cursor-pointer text-xl transition-colors select-none ${
+                                isFilled ? "text-yellow-400" : "text-gray-600 hover:text-gray-400"
+                            }`}
+                            onClick={() => handleRating(starValue)}
+                            onMouseEnter={() => setHoverRating(starValue)}
+                            >
+                            ★
+                            </span>
+                        );
+                        })}
+                    </div>
                 </div>
-                <div >
+                <div>
                     <h1 className="text-white">Popularity</h1>
                     <h1 className="text-white">{movie.popularity.toFixed(0)}</h1>
                 </div>
