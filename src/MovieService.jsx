@@ -183,3 +183,12 @@ export const saveMovieRatingLocal = (id, ratingValue) =>{
         console.log("Error saving data in site", error);
     }
 }
+export const saveTVRatingLocal = (id, ratingValue) =>{
+    try{
+        localStorage.setItem(`tvShow_rating_${id}`, ratingValue);
+        return true;
+    }
+    catch(error){
+        console.log("Error saving data in site", error);
+    }
+}

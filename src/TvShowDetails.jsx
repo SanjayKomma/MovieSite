@@ -1,5 +1,5 @@
 import { useParams } from 'react-router'
-import { getTrailerCredits, getTvShowDetails, getTvShowTrailer } from './MovieService';
+import { getTrailerCredits, getTvShowDetails, getTvShowTrailer, saveTVRatingLocal } from './MovieService';
 import { useEffect, useState } from 'react';
 export const TvShowDetails = () => {
   const {id} = useParams();
@@ -10,6 +10,11 @@ export const TvShowDetails = () => {
     cast: [],
     crew: []
   });
+  const [rating, setRating] = useState(()=>{
+        const savedRating = localStorage.getItem(`movie_rating_${id}`);
+        return savedRating ? parseInt(savedRating, 10) : 0;
+    });
+  const [hoverRating, setHoverRating] = useState(0);
   const Image_Base_Url = "https://image.tmdb.org/t/p/w500";
   const CastImage_Base_Url = "https://image.tmdb.org/t/p/w185";
   useEffect(()=>{
@@ -28,6 +33,10 @@ export const TvShowDetails = () => {
     };
     LoadPageData();
   },[id]);
+  const handleRating = async(ratingValue) => {
+          setRating(ratingValue);
+          saveTVRatingLocal(id,ratingValue);
+      }
   const directors = credits?.crew?.filter(person => person.job === "Director") || [];
   const producers = credits?.crew?.filter(person => person.job === "Producer") || [];
   const topCast = credits.cast.slice(0,20) || [];
@@ -50,7 +59,27 @@ export const TvShowDetails = () => {
                 </div>
                 <div>
                     <h1 className="text-white">Your Rating</h1>
-                    <h1 className="text-white"></h1>
+                    <h1 className="text-white font-bold text-xl mb-1">
+                        {rating > 0 ? `${rating}/10` : "—"}
+                    </h1>
+                    <div className="flex gap-1" onMouseLeave={() => setHoverRating(0)}>
+                        {[1, 2, 3, 4, 5].map((starIndex) => {
+                        const starValue = starIndex * 2;
+                        const isFilled = (hoverRating >= starValue) || (!hoverRating && rating >= starValue);
+                        return (
+                            <span
+                                key={starIndex}
+                                className={`cursor-pointer text-xl transition-colors select-none ${
+                                    isFilled ? "text-yellow-400" : "text-gray-600 hover:text-gray-400"
+                                }`}
+                                onClick={() => handleRating(starValue)}
+                                onMouseEnter={() => setHoverRating(starValue)}
+                                >
+                                ★
+                            </span>
+                        );
+                        })}
+                    </div>
                 </div>
                 <div >
                     <h1 className="text-white">Popularity</h1>
