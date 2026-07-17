@@ -11,7 +11,7 @@ export const TvShowDetails = () => {
     crew: []
   });
   const [rating, setRating] = useState(()=>{
-        const savedRating = localStorage.getItem(`movie_rating_${id}`);
+        const savedRating = localStorage.getItem(`tvShow_rating_${id}`);
         return savedRating ? parseInt(savedRating, 10) : 0;
     });
   const [hoverRating, setHoverRating] = useState(0);
@@ -77,7 +77,7 @@ export const TvShowDetails = () => {
                                 >
                                 ★
                             </span>
-                        );
+                            );
                         })}
                     </div>
                 </div>
