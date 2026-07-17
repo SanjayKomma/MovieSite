@@ -63,7 +63,7 @@ export const MovieDetailsPage = () => {
                     <div className="flex gap-1" onMouseLeave={() => setHoverRating(0)}>
                         {[1, 2, 3, 4, 5].map((starIndex) => {
                         const starValue = starIndex * 2;
-                        const isFilled = hoverRating >= starValue || (!hoverRating && rating >= starValue);
+                        const isFilled = (hoverRating >= starValue) || (!hoverRating && rating >= starValue);
                         return (
                             <span
                             key={starIndex}
