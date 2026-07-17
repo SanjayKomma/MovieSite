@@ -46,13 +46,13 @@ export const Navbar = () => {
     };
   }
   return (
-    <div className="flex items-center justify-between px-8 pt-4 pb-4 bg-gray-800 text-white">
-        <div className="mx-15 w-1/4">
+    <div className="flex items-center justify-right px-8 pt-4 pb-4 bg-gray-800 text-white">
+        <div className="mx-15 ">
             <h1 className="text-2xl font-bold tracking-wide cursor-pointer" onClick={()=>navigate("/")}>Movie DB</h1>
         </div>
-        <div className="flex items-center flex-1 gap-4">
+        <div className="mx-20 flex items-center flex-1 gap-4">
             <input  type="text" placeholder="search"
-            className="w-full max-w-xs px-4 py-1 rounded bg-gray-700 outline-none"
+            className="w-full px-4 py-1 rounded bg-gray-700 outline-none"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={handleSearch}
@@ -72,7 +72,7 @@ export const Navbar = () => {
               {Years.map(year => (<option key={year} value={year}>{year}</option>))}
             </select>
         </div>
-        <div className="w-1/4"></div>
+        {/* <div className="w-1/4"></div> */}
     </div>
   )
 }
